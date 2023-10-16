@@ -5,8 +5,12 @@ import { trataErro } from "./index.js";
 
 const caminho = process.argv[2];
 
-function imprimeLista(resultado) {
-  console.log(chalk.yellow("Lista de links:"), resultado);
+function imprimeLista(resultado, identificador = "") {
+  console.log(
+    chalk.yellow("Lista de links:"),
+    chalk.black.bgGreen(identificador),
+    resultado
+  );
 }
 
 async function processaTexto(caminho) {
@@ -20,12 +24,15 @@ async function processaTexto(caminho) {
       const arquivos = await fs.promises.readdir(caminho);
       arquivos.forEach(async (nomeDosArquivos) => {
         const lista = await pegaArquivo(`${caminho}/${nomeDosArquivos}`);
-        imprimeLista(lista);
+        imprimeLista(lista, nomeDosArquivos);
       });
       console.log(arquivos);
     }
   } catch (err) {
-    await trataErro(err);
+    if (err.code === "ENOENT") {
+      console.log(chalk.red.bold("Arquivo ou diretorio não existe."));
+      await trataErro(err.code);
+    }
   }
 }
 
