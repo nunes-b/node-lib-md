@@ -29,10 +29,17 @@ async function processaTexto(caminho) {
       console.log(arquivos);
     }
   } catch (err) {
+    if (err.code === "ENOTFOUND") {
+      console.log(
+        chalk.red.bold(
+          "O host não existe ou há algum erro no endereço fornecido, que não consegue ser resolvido pelo DNS..."
+        )
+      );
+    }
     if (err.code === "ENOENT") {
       console.log(chalk.red.bold("Arquivo ou diretorio não existe."));
-      await trataErro(err.code);
     }
+    await trataErro(err.code);
   }
 }
 
