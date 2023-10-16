@@ -19,7 +19,7 @@ Certifique-se de ter o Node.js instalado. Em seguida, siga estas etapas:
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu_usuario/sua_biblioteca.git
+git clone git@github.com:romulotgh21/node-lib-md.git
 ```
 
 2. Instale as dependências:
