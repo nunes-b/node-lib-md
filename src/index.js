@@ -14,6 +14,10 @@ function extraiLinks(texto) {
     : chalk.red("Não há links nesse arquivo.");
 }
 
+async function finalmente() {
+  console.log(chalk.yellow("Operação concluída com sucesso."));
+}
+
 async function pegaArquivo(caminhoDoArquivo) {
   const encoding = "utf-8";
 
@@ -23,7 +27,7 @@ async function pegaArquivo(caminhoDoArquivo) {
   } catch (err) {
     await trataErro(err);
   } finally {
-    console.log(chalk.yellow("operação concluída"));
+    await finalmente();
   }
 }
 
