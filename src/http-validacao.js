@@ -1,3 +1,5 @@
+import { trataErro } from "./index.js";
+
 function extraiLinks(arrLinks) {
   return arrLinks.map((objLink) => Object.values(objLink).join());
 }
@@ -5,8 +7,12 @@ function extraiLinks(arrLinks) {
 async function checaStatus(listaURLs) {
   const arrStatus = await Promise.all(
     listaURLs.map(async (url) => {
-      const response = await fetch(url);
-      return response.status;
+      try {
+        const response = await fetch(url, { method: "HEAD" });
+        return response.status;
+      } catch (err) {
+        trataErro(err);
+      }
     })
   );
   return arrStatus;
