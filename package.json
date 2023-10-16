@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cli": "node ./src/cli.js"
-
+    "cli": "node ./src/cli.js",
+    "cli:valida": "node ./src/cli.js ./arquivos/texto.md --valida"
   },
   "keywords": [],
   "author": "",
