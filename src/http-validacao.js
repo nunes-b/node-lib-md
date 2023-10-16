@@ -1,4 +1,13 @@
-import { trataErro } from "./index.js";
+import chalk from "chalk";
+
+function manejaErros(err) {
+  console.log(chalk.red("Algo deu errado", err));
+  if (err) {
+    return "Link não encontrado!";
+  } else {
+    return "Ocorreu um erro";
+  }
+}
 
 function extraiLinks(arrLinks) {
   return arrLinks.map((objLink) => Object.values(objLink).join());
@@ -11,7 +20,7 @@ async function checaStatus(listaURLs) {
         const response = await fetch(url, { method: "HEAD" });
         return response.status;
       } catch (err) {
-        trataErro(err);
+        return manejaErros(err);
       }
     })
   );
@@ -21,5 +30,5 @@ async function checaStatus(listaURLs) {
 export default async function listaValidada(listaDeLinks) {
   const links = extraiLinks(listaDeLinks);
   const status = await checaStatus(links);
-  return status;
+  return listaDeLinks.map((obj, index) => ({ ...obj, status: status[index] }));
 }
